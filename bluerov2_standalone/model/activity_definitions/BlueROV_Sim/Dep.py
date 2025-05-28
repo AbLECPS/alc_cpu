@@ -15,7 +15,6 @@ dep_dict = {
       "input_file": "parameters.yml",
       "options": {
         "hostname": "bluerov",
-        "runtime": "nvidia",
         "privileged": True,
         "volumes": {
           "$REPO_HOME/catkin_ws": {
@@ -32,7 +31,6 @@ dep_dict = {
       "input_file": "parameters.yml",
       "options": {
         "hostname": "xpra",
-        "runtime": "nvidia",
         "privileged": True,
         "ports":{10000:15001},
         "volumes": {

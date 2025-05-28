@@ -20,6 +20,7 @@ from nav_msgs.msg import Odometry
 from collections import deque
 from cv_bridge import CvBridge
 from scipy import interpolate
+from std_msgs.msg import Header
 
 class GT():
     SEAFLOOR =  [0,   255, 0]
@@ -209,6 +210,9 @@ class SideScanSonar(object):
         scan = np.where(scan > 1.5, 20, scan) # Debris/Unknown BLUE
         scan = np.where(scan == -np.inf, 30, scan) # Unknown / shadow BLACK
         scan = np.where(np.logical_and(scan >= 0.5, scan <= 1.5), 10, scan) # Pipeline RED
+        #if (np.where(scan==10)[0].size>0):
+        #    self.pipeline_in_view_msg.stamp = rospy.Time.now()
+        #    self.pipeline_in_view_gt_pub.publish(self.pipeline_in_view_msg)
         scan = np.where(scan < 0.5, 0, scan) # Seabed GREEN
         return scan
 

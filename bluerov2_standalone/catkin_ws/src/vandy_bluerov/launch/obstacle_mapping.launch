@@ -12,6 +12,7 @@
 	<arg name="use_hw_fls"  default="false"/>
 	<arg name="vae_path" default="/jupyter/admin_BlueROV/LEC3Lite_AM/vae"/>
     <arg name="lec3_filename" default="best_model/lec3_quant.tflite"/>
+	<arg name="use_am"  default = "false"/>
 
 	<!-- <arg name="no_go_zone_list" default="[[[600, 450],[740, 450],[740, 650],[700, 500]],[[600, 200],[650, 200],[650, 250],[600, 250]]]"/> -->
 	<!-- <arg name="no_go_zone_list" default="[[[600, 450],[740, 450],[740, 650],[700, 500]],[[560, 540],[550, 520],[560, 500],[570, 520]]]"/> -->
@@ -46,11 +47,12 @@
 		</include>
 
 		<!-- AM for LEC3LITE input (FLS Scan) -->
-		
-		<node name="lec3lite_am_vae" pkg="lec3lite" type="lec3_lite_am.py" output="screen" >
-			<param name="~am_type" type="str" value="vae" />
-			<param name="~path" type="str" value="$(arg vae_path)" />
-		</node>
+		<group if="$(arg use_am)">
+			<node name="lec3lite_am_vae" pkg="lec3lite" type="lec3_lite_am.py" output="screen" >
+				<param name="~am_type" type="str" value="vae" />
+				<param name="~path" type="str" value="$(arg vae_path)" />
+			</node>
+		</group>
 
 
 	</group>

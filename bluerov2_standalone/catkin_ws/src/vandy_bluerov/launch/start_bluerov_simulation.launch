@@ -14,7 +14,7 @@ Description:  Includes Bluerov UUV and SIM top level launch file
     <!-- CUDA acceleration for AM/pytorch -->
     <!-- Only in GPU docker -->
     <!-- Tensorflow executionis determined by docker (TF2 CPU or TF2 GPU installed) -->
-    <arg name="use_cuda" default="true"/>
+    <arg name="use_cuda" default="false"/>
     <env unless="$(arg use_cuda)" name="CUDA_VISIBLE_DEVICES" value="" />
 
     <!--rtreach parameters-->

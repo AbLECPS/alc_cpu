@@ -100,7 +100,8 @@ class AssuranceMonitorVAERegression(AssuranceMonitor):
         self.reset()
         vals = []
         self.window_size = 10
-        for i in range(0, self.window_size):
+        #for i in range(0, self.window_size):
+        for i in range(0, 2):
             p = self.icad_model.evaluate(input_data)
             vals.append(p)
             rpm = self.rpm(p)

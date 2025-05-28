@@ -53,7 +53,7 @@ import task_pipe_mapping_disable_task
 import task_tracking_task  
 import task_waypoint_task  
 import task_reallocate_task  
-import task_dd_lec_task
+#import task_dd_lec_task
 
 ##############################################################################
 # Behaviour Tree output interface
@@ -79,8 +79,8 @@ class BlueROV_BT(object):
         self.enable_emergency_stop = rospy.get_param('~enable_emergency_stop', True)   
         self.fls_in_view_window = rospy.get_param('~fls_in_view_window', 20)   
         self.fls_in_view_limit = rospy.get_param('~fls_in_view_limit', 10)   
-        self.fdir_path = rospy.get_param('~fdir_path', "jupyter/admin_BlueROV/FDIR_ALC/SLModel")   
-        self.fdir_params = rospy.get_param('~fdir_params', "{'user_choice':'override_threshold','am_s_threshold':0.5, 'am_threshold':0.5}")   
+        #self.fdir_path = rospy.get_param('~fdir_path', "jupyter/admin_BlueROV/FDIR_ALC/SLModel")   
+        #self.fdir_params = rospy.get_param('~fdir_params', "{'user_choice':'override_threshold','am_s_threshold':0.5, 'am_threshold':0.5}")   
         self.rtreach_window_size = rospy.get_param('~rtreach_window_size', 25)   
         self.rtreach_window_threshold = rospy.get_param('~rtreach_window_threshold', 0.75)
 
@@ -102,8 +102,8 @@ class BlueROV_BT(object):
         rospy.loginfo('[BT] enable_emergency_stop: {0}'.format(self.enable_emergency_stop))          
         rospy.loginfo('[BT] fls_in_view_window: {0}'.format(self.fls_in_view_window))          
         rospy.loginfo('[BT] fls_in_view_limit: {0}'.format(self.fls_in_view_limit))          
-        rospy.loginfo('[BT] fdir_path: {0}'.format(self.fdir_path))          
-        rospy.loginfo('[BT] fdir_params: {0}'.format(self.fdir_params))          
+        #rospy.loginfo('[BT] fdir_path: {0}'.format(self.fdir_path))          
+        #rospy.loginfo('[BT] fdir_params: {0}'.format(self.fdir_params))          
         rospy.loginfo('[BT] rtreach_window_size: {0}'.format(self.rtreach_window_size))          
         rospy.loginfo('[BT] rtreach_window_threshold: {0}'.format(self.rtreach_window_threshold)) 
 
@@ -119,7 +119,7 @@ class BlueROV_BT(object):
 
         BlueROV = py_trees.composites.Parallel("BlueROV")
         topics2bb = py_trees.composites.Parallel("topics2bb")
-        fdir_tasks = py_trees.composites.Selector("fdir_tasks")
+        #fdir_tasks = py_trees.composites.Selector("fdir_tasks")
         priorities = py_trees.composites.Selector("priorities")
         emergency_stop_tasks = py_trees.composites.Sequence("emergency_stop_tasks")
         rth_par = py_trees.composites.Parallel("rth_par")
@@ -132,7 +132,7 @@ class BlueROV_BT(object):
         waypoint_selector = py_trees.composites.Selector("waypoint_selector")
         waypoint_end = py_trees.composites.Sequence("waypoint_end")
 
-        reallocate_check = py_trees.meta.success_is_failure(py_trees.composites.Selector)(name="reallocate_check")
+        #reallocate_check = py_trees.meta.success_is_failure(py_trees.composites.Selector)(name="reallocate_check")
         battery_check = py_trees.meta.success_is_failure(py_trees.composites.Selector)(name="battery_check")
         sensor_failure_selector = py_trees.meta.success_is_failure(py_trees.composites.Selector)(name="sensor_failure_selector")
         emergency_stop_check = py_trees.meta.success_is_failure(py_trees.composites.Selector)(name="emergency_stop_check")
@@ -408,15 +408,15 @@ class BlueROV_BT(object):
         waypoint_task =task_waypoint_task.TaskHandler(
             name="waypoint_task") 
             
-        reallocate_task =task_reallocate_task.TaskHandler(
-            name="reallocate_task") 
+        #reallocate_task =task_reallocate_task.TaskHandler(
+        #    name="reallocate_task") 
             
-        dd_lec_task =task_dd_lec_task.TaskHandler(
-            name="dd_lec_task", 
-            num_classes = self.num_classes,  
-            ann_input_len = self.ann_input_len,  
-            fdir_path = self.fdir_path,  
-            fdir_params = self.fdir_params) 
+        #dd_lec_task =task_dd_lec_task.TaskHandler(
+        #    name="dd_lec_task", 
+        #    num_classes = self.num_classes,  
+        #    ann_input_len = self.ann_input_len,  
+        #    fdir_path = self.fdir_path,  
+        #    fdir_params = self.fdir_params) 
             
                                     
 
@@ -427,7 +427,7 @@ class BlueROV_BT(object):
 
         BlueROV.add_children([                
             topics2bb,                 
-            fdir_tasks,                 
+            #fdir_tasks,                 
             mission_server,                 
             obstacle_avoidance,                 
             priorities])
@@ -453,13 +453,13 @@ class BlueROV_BT(object):
             rtreach_unsafe_value2bb,                 
             rtreach_index2bb])
 
-        fdir_tasks.add_children([                
-            reallocate_check,                 
-            dd_lec_task])
+        #fdir_tasks.add_children([                
+        #    reallocate_check,                 
+        #    dd_lec_task])
 
-        reallocate_check.add_children([                
-            is_reallocation_requested,                 
-            reallocate_task])
+        #reallocate_check.add_children([                
+        #    is_reallocation_requested,                 
+        #    reallocate_task])
 
         priorities.add_children([                
             battery_check,                 

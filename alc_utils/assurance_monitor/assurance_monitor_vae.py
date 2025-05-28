@@ -119,14 +119,19 @@ class AssuranceMonitorVAE(AssuranceMonitor):
             return []
         self.reset()
         vals = []
-        for i in range(0, self.window_size):
+        #for i in range(0, self.window_size):
+        for i in range(0, 5):
             p = self.icad_model.evaluate(input_data)
             vals.append(p)
-            rpm = self.rpm(p)
+            vals.append(p)
+            #rpm = self.rpm(p)
             smm = self.smm(p)
-            pim = self.pim(p)
-        s, _ = self.detector(np.log(smm))
-        vals.append(np.log(rpm))
-        vals.append(np.log(smm))
+            #pim = self.pim(p)
+        v = np.log(smm)
+        s, _ = self.detector(v)
+        #vals.append(np.log(rpm))
+        #vals.append(np.log(smm))
+        vals.append(1);
+        vals.append(v)
         vals.append(s)
         return [vals]

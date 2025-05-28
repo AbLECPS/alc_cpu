@@ -13,7 +13,6 @@ dep_dict = { "name": "am_training",
       "input_file": "launch_activity_output.json",
       "options": {
           "hostname": "am_training",
-          "runtime": "nvidia"
           }
       }
   ]

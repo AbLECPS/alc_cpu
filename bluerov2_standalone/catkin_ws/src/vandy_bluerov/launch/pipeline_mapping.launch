@@ -16,6 +16,8 @@
 	
 	<!-- publish static transform between pipeline map and world -->
 	<arg name="uuv_name" default="uuv0"/>
+
+	<arg name="use_am"  default = "true"/>
     <group ns="$(arg uuv_name)">
 		<node pkg="tf" type="static_transform_publisher" name="fixed_pipeline_map" args="0 0 0 0 0 0   /uuv0/pipeline_map /uuv0/obstacle_map 100" />
 		<node pkg="vandy_bluerov" type="pipe_mapping.py" name="pipeline_map_publisher" output="screen"/>
@@ -42,12 +44,12 @@
                 </rosparam>
 		</node>			
 
-		<node name="vu_forward_imaging_sonar" pkg="vandy_bluerov" type="forward_imaging_sonar.py" output="screen">
+		<!-- <node name="vu_forward_imaging_sonar" pkg="vandy_bluerov" type="forward_imaging_sonar.py" output="screen">
                 <rosparam subst_value="true">
                 laser_topic: $(arg fis_laser_topic)
                 sonar_noise: $(arg fis_sonar_noise)
                 </rosparam>
-		</node>	
+		</node> -->	
 	</group>
 
 	
@@ -58,16 +60,18 @@
 
 	<!-- AM for LEC2LITE input (SSS Scan) -->
 	
-	<node name="lec2lite_am_vae_r" pkg="lec2lite" type="lec2lite_am.py" output="screen" >
-        <param name="~side" type="str" value="r" />
-		<param name="~am_type" type="str" value="vae" />
-		<param name="~path" type="str" value="$(arg vae_path)" />
-    </node>
-	<node name="lec2lite_am_vae_l" pkg="lec2lite" type="lec2lite_am.py" output="screen" >
-		<param name="~side" type="str" value="l" />
-		<param name="~am_type" type="str" value="vae" />
-		<param name="~path" type="str" value="$(arg vae_path)"/>
-    </node>
+	<group if="$(arg use_am)">
+		<node name="lec2lite_am_vae_r" pkg="lec2lite" type="lec2lite_am.py" output="screen" >
+			<param name="~side" type="str" value="r" />
+			<param name="~am_type" type="str" value="vae" />
+			<param name="~path" type="str" value="$(arg vae_path)" />
+		</node>
+		<node name="lec2lite_am_vae_l" pkg="lec2lite" type="lec2lite_am.py" output="screen" >
+			<param name="~side" type="str" value="l" />
+			<param name="~am_type" type="str" value="vae" />
+			<param name="~path" type="str" value="$(arg vae_path)"/>
+		</node>
+	</group>
 	
 <!-- 
 	<node name="lec2lite_am_svdd_r" pkg="lec2lite" type="lec2lite_am.py" output="screen" >

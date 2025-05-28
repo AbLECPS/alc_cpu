@@ -47,7 +47,7 @@ services:
     #  dockerfile: Dockerfile
     #image: alc_jupyter
     image: alc:latest
-    runtime: nvidia
+    #runtime: nvidia
     container_name: alc_jupyter
     restart: always
     #user: ${ALC_USER}
@@ -136,7 +136,7 @@ services:
      - SYS_ADMIN
     depends_on:
       - mongo
-    runtime: nvidia
+    #runtime: nvidia
     environment:
       - NODE_ENV=docker
       - ALC_HOME=$ALC_HOME
@@ -210,7 +210,7 @@ services:
     image: alc:latest
     container_name: alc_jupyter_matlab
     restart: always
-    runtime: nvidia
+    #runtime: nvidia
     #user: ${ALC_USER}
     environment:
       - ALC_HOME=$ALC_HOME
@@ -243,7 +243,7 @@ services:
     command: ["slurmd"]
     hostname: alc_slurm_node0
     container_name: alc_slurm_node0
-    runtime: nvidia
+    #runtime: nvidia
     environment:
       - NODE_ENV=docker
       - ALC_HOME=$ALC_HOME

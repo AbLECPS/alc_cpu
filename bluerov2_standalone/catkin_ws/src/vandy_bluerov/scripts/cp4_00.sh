@@ -10,8 +10,8 @@ _term() {
 
 trap _term SIGINT
 
-while :
-do
+#while :
+#do
 
 task_folder="task_"$(date +%Y-%m-%d_%H-%M-%S)
 mkdir -p /mnt/results/$task_folder
@@ -31,8 +31,8 @@ roslaunch vandy_bluerov start_bluerov_simulation.launch \
     mission_file:="mission_04.yaml" \
     enable_fault_detection:=true \
     thruster_motor_failure:=false \
-    enable_obstacles:=true \
-    box_max_cnt:=2 \
+    enable_obstacles:=false \
+    box_max_cnt:=0 \
     box_distance_static:=65 \
     lambda_low_static:=60 \
     lambda_high_static:=60 \
@@ -55,4 +55,4 @@ if [ $exit_status -eq 130 ]; then
     break
 fi
 
-done
+#done
