@@ -23,6 +23,7 @@ class ActivityInterpreter(ActivityInterpreterBase):
     postprocess_script_filename   = 'postprocess.py'         
 
     input_lec2_model_key_name      = "lec2"
+    input_am_lec2_model_key_name   = "am_lec2"
     input_lec3_model_key_name      = "lec3"
     input_lecdd_model_key_name     = "lec_dd"
     
@@ -50,6 +51,7 @@ class ActivityInterpreter(ActivityInterpreterBase):
     timeout_param_key              = "timeout"
 
     lec2_deployment_key            = "lec_model_dir"
+    am_lec2_deployment_key         = "lec2_vae_path"
     lecdd_deployment_key           = "fdir_path"
     lecdd_model_param_key_name     = "fdir_params"
 
@@ -130,6 +132,7 @@ class ActivityInterpreter(ActivityInterpreterBase):
         self.inputs = {}
         self.attributes = None
         self.lec2_model = None
+        self.am_lec2_model = None
         self.lec3_model = None
         self.lecdd_model = None
         self.parameters = {}
@@ -245,6 +248,8 @@ class ActivityInterpreter(ActivityInterpreterBase):
                 sim_parameters[param_keys] = self.parameters[pkeys][param_keys]
         if self.lec2_model:
             sim_parameters[self.lec2_deployment_key] = self.lec2_model
+        if self.am_lec2_model:
+            sim_parameters[self.am_lec2_deployment_key] = self.am_lec2_model
         if self.lecdd_model:
             sim_parameters[self.lecdd_deployment_key] = self.lecdd_model
             sim_parameters[self.lecdd_model_param_key_name] = self.build_lec_dd_params()
@@ -347,6 +352,8 @@ class ActivityInterpreter(ActivityInterpreterBase):
     def check(self):
         if not self.lec2_model:
             print("*********** no user specified lec2. using default *************")
+        if not self.am_lec2_model:
+            print("*********** no user specified am lec2. using default *************")
         if not self.lec3_model:
             print("*********** no user specified lec3. using default *************")
         if not self.lecdd_model:
@@ -369,6 +376,10 @@ class ActivityInterpreter(ActivityInterpreterBase):
         if len(self.lec2_model):
             self.lec2_model = str(self.lec2_model[0])
         
+        self.am_lec2_model, am_lec2_metadata = self.get_input_data_dirs(self.input_am_lec2_model_key_name)
+        if len(self.am_lec2_model):
+            self.am_lec2_model = str(self.am_lec2_model[0])
+
         self.lec3_model, lec3_metadata = self.get_input_data_dirs(self.input_lec3_model_key_name)
         if len(self.lec3_model):
             self.lec3_model = str(self.lec3_model[0])

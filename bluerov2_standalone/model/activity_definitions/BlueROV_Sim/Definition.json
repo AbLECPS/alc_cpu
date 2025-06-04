@@ -874,6 +874,11 @@
                 "type": "LEC",
                 "name": "lec2"
             },
+            "am_lec2": {
+                "ChoiceList": "",
+                "type": "AM",
+                "name": "am_lec2"
+            },
             "lec3": {
                 "ChoiceList": "",
                 "type": "LEC",

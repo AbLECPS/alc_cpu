@@ -156,6 +156,7 @@ Description:  Includes Bluerov UUV and SIM top level launch file
     <arg name="lec2_vae_path" default="/jupyter/admin_BlueROV/LEC2Lite_AM/vae"/>
 	<arg name="lec2_svdd_path" default="/jupyter/admin_BlueROV/LEC2Lite_AM/svdd/SLModel"/>
     <arg name="lec2_filename" default="lec2_quant_up_hwsim_100_8.tflite"/>
+    <arg name="lec_model_dir" default=""/>
 
     <!-- LEC3 params -->
     <arg name="max_range" default="50.0" />
@@ -549,6 +550,7 @@ Description:  Includes Bluerov UUV and SIM top level launch file
         <arg name="lec2_vae_path" value="$(arg lec2_vae_path)"/>
 	    <arg name="lec2_svdd_path" value="$(arg lec2_svdd_path)"/>
         <arg name="lec2_filename" value="$(arg lec2_filename)"/>
+        <arg name="lec_model_dir" value="$(arg lec_model_dir)"/>
         <arg name="sss_sonar_noise" value="$(arg sss_sonar_noise)"/>
         <arg name="fis_sonar_noise" value="$(arg fis_sonar_noise)"/>    
     </include>

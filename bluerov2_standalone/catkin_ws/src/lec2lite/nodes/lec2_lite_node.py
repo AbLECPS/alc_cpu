@@ -36,7 +36,14 @@ class LEC2Lite(object):
  
         # Load TFLite model and allocate tensors.
         rp = rospkg.RosPack()
+        lec_model_dir = rospy.get_param('~lec_model_dir','')
         filename = os.environ["ALC_WORKING_DIR"] + "/jupyter/admin_BlueROV/LEC2Lite/" + rospy.get_param('~filename', 'lec2.tflite')
+        if (lec_model_dir != ""):
+            lec2_filename =lec_model_dir+"/lec2_quant.tflite"
+            if (os.path.exists(lec2_filename)):
+                filename = lec2_filename
+
+
         # filename = rp.get_path("lec2lite") + "/nodes/lec2_quant.tflite"
 
         #config = tf.ConfigProto()
@@ -53,6 +60,8 @@ class LEC2Lite(object):
             pass 
         
         rospy.loginfo('VU LEC2 TFLite initialized for "%s" side' %(self.side))
+        rospy.loginfo('VU LEC2 TFLite model file  "%s" ' %(filename))
+
         
     def callback_sss(self, msg):
         '''

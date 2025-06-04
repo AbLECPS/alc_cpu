@@ -57,7 +57,12 @@ class LEC2LiteAM(object):
         ###### ALC VAE AM
         #use the am in the current folder
         rospack = rospkg.RosPack()
-        am_path = os.environ["ALC_WORKING_DIR"] + rospy.get_param('~path', "/jupyter/admin_BlueROV/LEC2Lite_AM/vae/SLModel")
+        path = rospy.get_param('~path', "/jupyter/admin_BlueROV/LEC2Lite_AM/vae/SLModel")
+        if (path):
+            idx=path.index("/jupyter/")
+            path=path[idx:]
+        am_path = os.environ["ALC_WORKING_DIR"] + path
+        #am_path = os.environ["ALC_WORKING_DIR"] + rospy.get_param('~path', "/jupyter/admin_BlueROV/LEC2Lite_AM/vae/SLModel")
         print("##########################################\n\n\n")
         print("AM Path:")
         print(am_path)

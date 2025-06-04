@@ -167,6 +167,7 @@ Description:  Uploads the Bluerov UUV nodes.
     <arg name="lec2_vae_path" default="/jupyter/admin_BlueROV/LEC2Lite_AM/vae"/>
 	<arg name="lec2_svdd_path" default="/jupyter/admin_BlueROV/LEC2Lite_AM/svdd/SLModel"/>
     <arg name="lec2_filename" default="lec2_quant_up_hwsim_100_8.tflite"/>
+    <arg name="lec_model_dir" default=""/>
 
     <!-- Side Scan Sonar noise -->
 	<arg name="sss_sonar_noise" default="0.5"/>
@@ -292,6 +293,7 @@ Description:  Uploads the Bluerov UUV nodes.
         <arg name="vae_path" value="$(arg lec2_vae_path)"/>
 	    <arg name="svdd_path" value="$(arg lec2_svdd_path)"/>
         <arg name="filename" value="$(arg lec2_filename)"/>
+        <arg name="lec_model_dir" value="$(arg lec_model_dir)"/>
         <arg name="sss_sonar_noise" value="$(arg sss_sonar_noise)"/>
         <arg name="fis_sonar_noise" value="$(arg fis_sonar_noise)"/>
     </include>

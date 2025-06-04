@@ -33,7 +33,7 @@ Description:  Randomly generate pipes
       angle_max: $(arg angle_max)
       length_min: $(arg length_min)
       length_min: $(arg length_min)
-      pipe_diameter_scale: $(arg pipe_scale)
+      pipe_scale: $(arg pipe_scale)
       random_seed: $(arg random_seed)        
       pipe_posx: $(arg pipe_posx)
       pipe_posy: $(arg pipe_posy)

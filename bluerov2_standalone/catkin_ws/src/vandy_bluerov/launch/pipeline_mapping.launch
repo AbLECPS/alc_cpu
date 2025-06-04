@@ -7,6 +7,7 @@
 
 	<!-- LEC2 TFLite filename -->
 	<arg name="filename" default="lec2.tflite"/>
+	<arg name="lec_model_dir" default=""/>
 
 	<!-- Side Scan Sonar noise -->
 	<arg name="sss_sonar_noise" default="0.5"/>
@@ -56,6 +57,7 @@
 
 	<include file="$(find lec2lite)/launch/lec2lite_docker.launch">
        <arg name="filename" value="$(arg filename)"/>
+       <arg name="lec_model_dir" value="$(arg lec_model_dir)"/>
 	</include>
 
 	<!-- AM for LEC2LITE input (SSS Scan) -->
