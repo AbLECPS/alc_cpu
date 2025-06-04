@@ -21,24 +21,6 @@ services:
     networks:
      - alcnet
   
-  # docker registry
-  registry:
-    image: registry:2
-    restart: always
-    container_name: alc_registry
-    environment:
-      - REGISTRY_HTTP_ADDR="0.0.0.0:$ALC_REGISTRY_PORT"
-      - REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt
-      - REGISTRY_HTTP_TLS_KEY=/certs/domain.key
-      - REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/data
-      - REGISTRY_PORT=$ALC_REGISTRY_PORT
-    ports:
-      - $ALC_REGISTRY_PORT:$ALC_REGISTRY_PORT
-    volumes:
-    - $ALC_DOCKERFILES/certs:/certs
-    - $ALC_REGISTRY_DATA:/data
-    networks:
-     - alcnet
 
   # Jupyter container
   jupyter:
