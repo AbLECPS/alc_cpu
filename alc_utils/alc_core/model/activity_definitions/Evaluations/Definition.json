@@ -1,0 +1,110 @@
+{
+  "EvalJob": {
+    "Category": "EvalJob ",
+    "name": "EvalJob",
+    "context": {
+      "Evaluation": {
+        "name": "eval_definition",
+        "type": "Code",
+        "Label": "Code",
+        "parameters": {
+          "eval_definition": {
+            "type": "code",
+            "filename": "eval_script.py",
+            "name": "eval_definition"
+          }
+        }
+      }
+    },
+    "input": {
+      "LECModels": {
+        "type": "LEC",
+        "Label": "LECModels",
+        "name": "LECModels",
+        "multi_dataset": true
+      },
+      "TestData": {
+        "name": "TestData",
+        "Label": "test_data",
+        "type": "Data",
+        "multi_dataset": true
+      },
+      "TrainingData": {
+        "name": "TrainingData",
+        "Label": "training_data",
+        "type": "Data",
+        "multi_dataset": true
+      }
+    },
+    "output": {
+      "data": {
+        "type": "data",
+        "Label": "evalution_result",
+        "name": "evaluation_result",
+        "attributes": {
+          "fileformat": {
+            "type": "string",
+            "name": "fileformat"
+          },
+          "path": {
+            "type": "string",
+            "name": "path"
+          }
+        }
+      }
+    },
+    "parameters": {
+      "Parameters": {
+        "Label": "eval_parameters",
+        "name": "Parameters",
+        "parameters": {
+          "eval_script": {
+            "name": "eval_script",
+            "type": "code"
+          },
+          "eval_code": {
+            "name": "eval_code",
+            "type": "code"
+          }
+        }
+      },
+      "Execution": {
+        "category": "Execution",
+        "category_choices": "Execution",
+        "name": "Execution",
+        "description":"Parameters for evaluation execution",
+        "parameters": {
+            "timeout": {
+                "min": "-1",
+                "defaultValue": "7220",
+                "isTable": false,
+                "type": "float",
+                "index":2,
+                "description":"Maximum time for evaluation",
+                "name": "timeout"
+            },
+            "load_dev": {
+              "defaultValue": "false",
+              "isTable": false,
+              "type": "boolean",
+              "index":3,
+              "description":"Mount /dev",
+              "name": "load_dev"
+          }
+            
+        }
+    },
+    "Evaluation": {
+      "Label": "evaluation",
+      "name": "Evaluation",
+      "parameters": {
+        "eval_definition": {
+          "type": "code",
+          "filename": "eval_code.py",
+          "name": "eval_definition"
+        }
+      }
+    }
+    }
+  }
+}

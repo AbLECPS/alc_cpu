@@ -129,7 +129,7 @@ def plot_results(bagfilename,
                 plt.figure(17)
                 plt.plot(y_data, x_data, color="orange", label='UUV path')
                 plt.grid()
-                plt.axis('equal')
+                #plt.axis('equal')
                 plt.xlabel("Position (m)")
                 plt.ylabel("Position (m)")
                 plt.title("Top view position", fontsize=14, fontweight='bold')
@@ -137,7 +137,7 @@ def plot_results(bagfilename,
             if len(o):                
                 plt.figure(17)
                 plt.plot(np.array(o)[:,1], np.array(o)[:,0], 'rs',
-                         markersize=20, label='Obstacles')
+                         markersize=2, label='Obstacles')
                 plt.legend()    
 
             matplotlib.rcParams['figure.figsize'] = [15, 4]
@@ -177,22 +177,22 @@ def plot_results(bagfilename,
                         plt.figure(17)
                         x = []
                         y = []
-                        for i in range(len(data)):
+                        for i in range(1):
                             x.append(data[i].pose.position.x)  
                             y.append(data[i].pose.position.y)                  
                         plt.plot(x, y, 'kP',
-                                markersize=20, label='Initial waypoints')
+                                markersize=5, label='Initial waypoints')
                         plt.legend()           
         
             if len(data):                
                 plt.figure(17)
                 x = []
                 y = []
-                for i in range(len(data)):
+                for i in range(1,len(data)):
                     x.append(data[i].pose.position.x)  
                     y.append(data[i].pose.position.y)                  
                 plt.plot(x, y, 'rX',
-                         markersize=14, label='Final waypoints')
+                         markersize=5, label='Final waypoints')
                 plt.legend()           
         
 

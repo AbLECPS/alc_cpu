@@ -1,0 +1,14 @@
+<launch>
+    <!-- Define parameters for playback rate, bag file, output directory, and image topic -->
+    <param name="playback_rate" value="5.0" />
+    <param name="bag_file" value="config-0/results/recording.bag" />
+    <param name="image_topic" value="/vu_sss/waterfall_r" />
+
+    <!-- Node to play the rosbag with dynamically set playback rate -->
+    <node pkg="rosbag" type="play" name="rosbag" required="true" args="-r $(arg playback_rate) $(arg bag_file)" />
+
+    <!-- Node to extract images with dynamically set parameters -->
+    <node name="extract" pkg="image_view" type="extract_images" respawn="false" required="true" output="screen" cwd="ROS_HOME">
+        <remap from="image" to="$(arg image_topic)" />
+    </node>
+</launch>

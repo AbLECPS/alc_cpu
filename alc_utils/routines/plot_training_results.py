@@ -30,22 +30,24 @@ def plot(foldername):
     if len(history.keys()) == 0:
         return
     matplotlib.rcParams['figure.figsize'] = [10, 10]
-    plt.figure()
-    plt.plot(history['acc'], label='Train')
-    if 'val_acc' in history.keys():
-        plt.plot(history['val_acc'], label='Test')
-    plt.title('Model accuracy')
-    plt.ylabel('Accuracy')
-    plt.xlabel('Epoch')
-    plt.legend()
-    plt.show()
+    if ('acc' in history.keys() or 'val' in history.keys()):
+        plt.figure()
+        if ('acc' in history.keys()):
+            plt.plot(history['acc'], label='Train')
+        if 'val_acc' in history.keys():
+            plt.plot(history['val_acc'], label='Test')
+        plt.title('Model accuracy')
+        plt.ylabel('Accuracy')
+        plt.xlabel('Epoch')
+        plt.legend()
+        plt.show()
 
-    plt.figure()
-    plt.plot(history['loss'], label='Train')
     if 'val_loss' in history.keys():
-        plt.plot(history['val_loss'], label='Test')
-    plt.title('Model loss')
-    plt.ylabel('Loss')
-    plt.xlabel('Epoch')
-    plt.legend()
-    plt.show()
+        plt.figure()
+        plt.plot(history['loss'], label='Train')
+        plt.plot(history['val_loss'], label='Val')
+        plt.title('Model loss')
+        plt.ylabel('Loss')
+        plt.xlabel('Epoch')
+        plt.legend()
+        plt.show()

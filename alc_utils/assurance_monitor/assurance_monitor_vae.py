@@ -41,7 +41,7 @@ class AssuranceMonitorVAE(AssuranceMonitor):
     def __init__(self):
         super(AssuranceMonitorVAE, self).__init__()
         self.epsilon = 0.75
-        self.window_size = 10
+        self.window_size =5 
         self.rpm = None
         self.pim = None
         self.smm = None
@@ -119,8 +119,7 @@ class AssuranceMonitorVAE(AssuranceMonitor):
             return []
         self.reset()
         vals = []
-        #for i in range(0, self.window_size):
-        for i in range(0, 5):
+        for i in range(0, self.window_size):
             p = self.icad_model.evaluate(input_data)
             vals.append(p)
             vals.append(p)

@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-alias docker-compose="docker compose"
 pids=""
 
 DOCKER_PRE_OPTIONS=()
@@ -215,12 +214,12 @@ if [ "${SERVER_VERSION_MAJOR}" -ge 19 ] && \
    [ "${SERVER_VERSION_BUILD}" -ge 3 ]; then
     #echo "Docker version >= 19.0.3. Using standard docker compose file."
     echo "Executing command: 'docker-compose ${DOCKER_PRE_OPTIONS[@]} up ${POSITIONAL[@]}'" > "logs/run_services_${DATE}.log"
-    docker compose "${DOCKER_PRE_OPTIONS[@]}" "${DOCKER_COMPOSE_CMD}" "${POSITIONAL[@]}" |& tee -a "logs/run_services_${DATE}.log"
+    docker-compose "${DOCKER_PRE_OPTIONS[@]}" "${DOCKER_COMPOSE_CMD}" "${POSITIONAL[@]}" |& tee -a "logs/run_services_${DATE}.log"
     pids="$pids $!"
 else
     #echo "Docker version less than 19.0.3. Using legacy docker compose file and nvidia-runtime library."
     echo "Executing command: 'docker-compose ${DOCKER_PRE_OPTIONS[@]} up ${POSITIONAL[@]}'" > "logs/run_services_${DATE}.log"
-    docker compose "${DOCKER_PRE_OPTIONS[@]}" "${DOCKER_COMPOSE_CMD}" "${POSITIONAL[@]}" |& tee -a "logs/run_services_${DATE}.log"
+    docker-compose "${DOCKER_PRE_OPTIONS[@]}" "${DOCKER_COMPOSE_CMD}" "${POSITIONAL[@]}" |& tee -a "logs/run_services_${DATE}.log"
     pids="$pids $!"
 fi
 
