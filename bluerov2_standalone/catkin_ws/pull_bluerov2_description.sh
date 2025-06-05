@@ -13,6 +13,7 @@ else
     echo "bluerov2_description/meshes" >> .git/info/sparse-checkout
     git pull origin master
     popd
+    mkdir -p  $PWD/src/bluerov2/bluerov2_description/meshes/
     mv $PWD/test_repo/bluerov2_description/meshes/* $PWD/src/bluerov2/bluerov2_description/meshes/
     rm -Rf $PWD/test_repo
 fi

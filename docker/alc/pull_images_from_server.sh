@@ -50,4 +50,5 @@ for (( i=0; i<${#image_list[*]}; ++i)); do
     docker pull $image_name
 done
 
-
+docker tag alc:cpu alc:latest
+docker tag alc:cpu alc_alc:latest

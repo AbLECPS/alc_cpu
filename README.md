@@ -6,10 +6,10 @@ Contact: alc-team@vanderbilt.edu
 
 --------------------------------------------------------------------------------------------------------------------------------------
 
-Standard setup
+Setup for CPU 
 ==============
 
-The release was succesfully tested on machines running Ubuntu (amd64) 18.04 and 16.04 with  GPU families GTX10xx (Pascal), RTX20xx (Turing)  and RTX30xx (Ampere). 
+The release was succesfully tested on machines running Ubuntu 24.04, and 22.04 . 
 
 
 
@@ -17,21 +17,22 @@ Prerequisites
 -------------
 
 
-- Linux OS (tested with Ubuntu 16.04 & 18.04), amd64 platform
+- Linux OS (tested with Ubuntu 22.04, Ubuntu 24.04) or on Windows with [WSL](https://documentation.ubuntu.com/wsl/latest/howto/install-ubuntu-wsl2/) and  Ubuntu 24.04.
 
 
-- [Docker ](https://docs.docker.com/install/)
+- [Docker ](https://docs.docker.com/desktop/setup/install/linux/ubuntu/)
 
     - Tested with docker version 20.10.(7,8,11)
     - Configure your user account to [use docker without 'sudo'](https://github.com/sindresorhus/guides/blob/master/docker-without-sudo.md)
     - Be sure to log out, then log back in so group changes will be applied
 
-- [Docker Compose File Format](https://docs.docker.com/compose/compose-file/compose-versioning/#version-2)
+- [Docker Compose File Format](https://www.cherryservers.com/blog/install-docker-compose-ubuntu)
 
     - Version should be >= 2.3 and < 3.0
 
 
-- Other tools required as part of the setup.
+
+- Other tools required as part of the setup (these come standard with Ubuntu 24.04 install on WSL)
         
     - Install Git
 
@@ -78,11 +79,10 @@ Example bash_rc addition
 ```
         # ALC Variables
         export ALC_HOME=$HOME/alc
-        export ALC_WORKING_DIR=/hdd0/alc_workspace
+        export ALC_WORKING_DIR=$HOME/alc_workspace
         export ALC_DOCKERFILES=$HOME/alc_dockerfiles
 ```
 
-Here /hdd0 is the mount point of a secondary drive with ample storage for large datasets.
 
 2.) Source updated bashrc and create directories
 
@@ -99,10 +99,10 @@ Get ALC docker images, codebase and data.
 ----------------------------------------
 
     
-1.) Clone this repository
+1.) Clone this repository - branch cpu
 
 ```   
-       git clone git@github.com:AbLECPS/alc.git $ALC_HOME
+       git clone --single-branch cpu git@github.com:AbLECPS/alc.git $ALC_HOME
 
  ```
 
@@ -115,8 +115,6 @@ $ALC_HOME/docker/alc/pull_images_from_server.sh
         
 The docker images and containers are stored in /var/lib/docker. If you don't have space on the disk where this folder exists, please follow the [instructions](https://r00t4bl3.com/post/how-to-move-docker-data-directory-to-another-location-on-ubuntu) to configure the docker daemon to use another directory on a drive with sufficient space.
 
-**Note:** The alc docker image supplied as part of this release was built off of a GPU-based tensorflow (v 2.6.2) docker image requires a minimum of CUDA 11.2.
-              
 
 3.) Copy data and pre-trained models
 
@@ -158,7 +156,7 @@ Using your preferred text editor, edit `slurm.conf` and `gres.conf` files in the
          
 ```
         # COMPUTE NODES
-        NodeName=alc_slurm_node0 CPUs=16 RealMemory=30000 Sockets=1 CoresPerSocket=8 ThreadsPerCore=2 State=UNKNOWN Gres=gpu:turing:1
+        NodeName=alc_slurm_node0 CPUs=16 RealMemory=30000 Sockets=1 CoresPerSocket=8 ThreadsPerCore=2 State=UNKNOWN 
 ```
 Slurm configuration requires that provided values be strictly less than or equal to actual available hardware.
     For example, a computer with 16 GB of RAM may actually report 15,999 MB available.
@@ -168,11 +166,10 @@ The `gres.conf` file may also need to be edited depending on the available GPU(s
 The information in this file must match what is specified in the "Gres" field of the `slurm.conf` configuration, and looks as follows:
     
 ```
-    NodeName=alc_slurm_node0 Name=gpu Type=turing File=/dev/nvidia0
+    NodeName=alc_slurm_node0 
 
 ```
 
-The GPU type "turing" in each of the above files refers to the Nvidia GPU architecture code name.
 This [listing](https://nouveau.freedesktop.org/wiki/CodeNames/) provides the codes for different GPU architectures.
 See [Slurm documentation](https://slurm.schedmd.com/) on these two files if more information is needed.
 
@@ -195,15 +192,6 @@ To run services in the background, use
     ./run_services.sh -d
 ```
 
-
-Setting up local docker registry
---------------------------------
-
-This step is required only when you want to use the integrated IDE with the toolchain which uses a docker-in-docker mechanism to launch a private docker-daemon that uses a different docker-registry. To setup a local docker registry execute the scrip below while the toolchain is running successfully (i.e. run_services.sh is running)
-
-```
-    $ALC_HOME/docker/alc/update_registry.sh
-```
 
 
 Using the ALC Toolchain
