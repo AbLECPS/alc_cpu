@@ -102,7 +102,7 @@ Get ALC docker images, codebase and data.
 1.) Clone this repository - branch cpu
 
 ```   
-       git clone --single-branch cpu git@github.com:AbLECPS/alc.git $ALC_HOME
+       git clone git@github.com:AbLECPS/alc_cpu.git $ALC_HOME
 
  ```
 
